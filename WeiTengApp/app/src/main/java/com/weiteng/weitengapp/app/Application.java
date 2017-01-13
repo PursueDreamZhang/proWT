@@ -7,6 +7,7 @@ import com.weiteng.weitengapp.module.crash.CrashData;
 import com.weiteng.weitengapp.module.crash.CrashHandler;
 import com.weiteng.weitengapp.module.crash.CrashSender;
 import com.weiteng.weitengapp.util.LogUtils;
+import com.weiteng.weitengapp.util.ResourceUtils;
 import com.weiteng.weitengapp.util.SystemUtils;
 import com.weiteng.weitengapp.util.ThreadUtils;
 
@@ -37,6 +38,7 @@ public class Application extends BaseApplication {
         });
 
         ThreadUtils.init(this);
+        ResourceUtils.init(this);
 
         LogUtils.init(Configuration.DEFAULT_LOG_PATH);
     }
