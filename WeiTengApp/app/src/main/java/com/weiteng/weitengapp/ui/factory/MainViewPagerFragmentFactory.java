@@ -11,7 +11,7 @@ import com.weiteng.weitengapp.util.ResourceUtils;
 
 public class MainViewPagerFragmentFactory {
 	public static Fragment create(Application app, int position) {
-		String[] tabs = ResourceUtils.getStringArray(app, R.array.main_tab_names);
+		String[] tabs = ResourceUtils.getStringArray(R.array.main_tab_names);
 		Fragment fragment = null;
 		switch (position) {
 		case 0:

@@ -1,11 +1,11 @@
 package com.weiteng.weitengapp.ui.activity;
+
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
 import com.weiteng.weitengapp.R;
 import com.weiteng.weitengapp.app.Application;
 import com.weiteng.weitengapp.base.BaseCompatActivity;
-import com.weiteng.weitengapp.base.BaseFragment;
 import com.weiteng.weitengapp.ui.adapter.MainIconPagerAdapter;
 import com.weiteng.weitengapp.ui.factory.MainViewPagerFragmentFactory;
 import com.weiteng.weitengapp.ui.view.Fragment;
@@ -44,9 +44,9 @@ public class MainActivity extends BaseCompatActivity {
         List<Fragment> fragments = new ArrayList<Fragment>();
 
         fragments.add(MainViewPagerFragmentFactory.create((Application) mApp, 0));
-        //fragments.add(MainViewPagerFragmentFactory.create((Application) mApp,1));
-        fragments.add(MainViewPagerFragmentFactory.create((Application) mApp,2));
-        fragments.add(MainViewPagerFragmentFactory.create((Application) mApp,3));
+        //fragments.add(MainViewPagerFragmentFactory.create((Application) mApp, 1));
+        fragments.add(MainViewPagerFragmentFactory.create((Application) mApp, 2));
+        fragments.add(MainViewPagerFragmentFactory.create((Application) mApp, 3));
 
         return fragments;
     }

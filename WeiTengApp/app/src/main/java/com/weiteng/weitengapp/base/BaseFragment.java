@@ -7,18 +7,12 @@ import android.support.v4.app.Fragment;
 public abstract class BaseFragment extends Fragment {
     protected BaseApplication mApp;
 
-   /* public BaseFragment() {
-        mApp = (BaseApplication) getActivity().getApplication();
-    }*/
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mApp = (BaseApplication) getActivity().getApplication();
         initData();
     }
-
-
 
     protected abstract void initData();
 }
