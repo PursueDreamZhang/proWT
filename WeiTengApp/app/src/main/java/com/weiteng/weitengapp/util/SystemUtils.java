@@ -11,7 +11,7 @@ import android.os.Environment;
 import android.telephony.TelephonyManager;
 
 
-import com.weiteng.weitengapp.module.crash.DeviceInfo;
+import com.weiteng.weitengapp.bean.DeviceInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +31,8 @@ public class SystemUtils {
     }
 
     public static boolean isNetworkConnected(Context context) {
-        return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo().isAvailable();
+        return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE))
+                .getActiveNetworkInfo().isAvailable();
     }
 
     public static DeviceInfo dumpDeviceInfo(Context context) {

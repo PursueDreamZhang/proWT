@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.weiteng.weitengapp.R;
-import com.weiteng.weitengapp.app.ApiManager;
 import com.weiteng.weitengapp.base.BaseCompatActivity;
 import com.weiteng.weitengapp.util.ThreadUtils;
-
-import java.util.List;
 
 public class SplashActivity extends BaseCompatActivity {
 
@@ -23,10 +20,12 @@ public class SplashActivity extends BaseCompatActivity {
 
     @Override
     protected void initView() {
+
     }
 
     @Override
     protected void initData() {
+
     }
 
     private void enterMainActivity(long timeout){
