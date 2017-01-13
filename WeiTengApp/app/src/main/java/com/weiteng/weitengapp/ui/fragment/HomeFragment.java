@@ -46,10 +46,10 @@ public class HomeFragment extends Fragment {
 
     @Override
     protected void initData() {
-        String url1 = "http://weiteng.tdwebsite.cn/statics/static/h-ui.admin/images/b-1.jpg";
+        String url3 = "http://weiteng.tdwebsite.cn/statics/static/h-ui.admin/images/b-1.jpg";
         String url2 = "http://weiteng.tdwebsite.cn/statics/static/h-ui.admin/images/b-2.jpg";
         TextSliderView textSliderView1 = new TextSliderView(getContext());
-        textSliderView1.image(url1);
+        textSliderView1.image(url3);
         textSliderView1.setScaleType(BaseSliderView.ScaleType.Fit);
         mSlider.addSlider(textSliderView1);
 
