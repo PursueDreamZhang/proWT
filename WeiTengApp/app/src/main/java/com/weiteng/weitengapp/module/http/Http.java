@@ -20,7 +20,8 @@ public class Http {
     private static HttpConfig mConfig = new HttpConfig();
 
     static {
-        mOkHttp = new OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS).readTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS).build();
+        mOkHttp = new OkHttpClient.Builder().connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS).writeTimeout(10, TimeUnit.SECONDS).build();
     }
 
     public static OkHttpClient getClient() {
@@ -31,110 +32,107 @@ public class Http {
         mConfig = config;
     }
 
-    public static void get(final String url, final HttpRequestParams params, final HttpRequestCallBack callBack) {
+    public static void get(final String url, final RequestParams params, final RequestCallBack callBack) {
         ThreadUtils.runOnBackground(new Runnable() {
             @Override
             public void run() {
                 StringBuilder stringBuilder = new StringBuilder(url);
 
-                if (params != null) {
-                    if (!url.endsWith("&")) {
-                        stringBuilder.append("&");
-                    }
-                    stringBuilder.append(params.toString());
+                if (!url.endsWith("&")) {
+                    stringBuilder.append("&");
                 }
+                stringBuilder.append(params.toString());
 
                 Request request = new Request.Builder().url(stringBuilder.toString()).get().build();
-                mOkHttp.newCall(request).enqueue(new HttpRequestCallBackProxy(callBack));
+                mOkHttp.newCall(request).enqueue(new RequestCallBackProxy(callBack));
             }
         });
     }
 
-    public static void get(final String url, final HttpRequestParams params, final Headers headers, final HttpRequestCallBack callBack) {
+    public static void get(final String url, final RequestParams params, final Headers headers, final RequestCallBack callBack) {
         ThreadUtils.runOnBackground(new Runnable() {
             @Override
             public void run() {
                 StringBuilder stringBuilder = new StringBuilder(url);
 
-                if (params != null) {
-                    if (!url.endsWith("&")) {
-                        stringBuilder.append("&");
-                    }
-                    stringBuilder.append(params.toString());
+                if (!url.endsWith("&")) {
+                    stringBuilder.append("&");
                 }
+                stringBuilder.append(params.toString());
 
                 Request request = new Request.Builder().url(stringBuilder.toString()).get().headers(headers).build();
-                mOkHttp.newCall(request).enqueue(new HttpRequestCallBackProxy(callBack));
+                mOkHttp.newCall(request).enqueue(new RequestCallBackProxy(callBack));
             }
         });
     }
 
-    public static void post(final String url, final HttpRequestParams params, final FormBody form, final HttpRequestCallBack callBack) {
+    public static void post(final String url, final RequestParams params, final FormBody form,
+                            final RequestCallBack callBack) {
         ThreadUtils.runOnBackground(new Runnable() {
             @Override
             public void run() {
                 StringBuilder stringBuilder = new StringBuilder(url);
 
-                if (params != null) {
-                    if (!url.endsWith("&")) {
-                        stringBuilder.append("&");
-                    }
+                if (!url.endsWith("&")) {
+                    stringBuilder.append("&");
+                }
+                if (params!=null){
                     stringBuilder.append(params.toString());
                 }
 
                 Request request = new Request.Builder().url(stringBuilder.toString()).post(form).build();
-                mOkHttp.newCall(request).enqueue(new HttpRequestCallBackProxy(callBack));
+                mOkHttp.newCall(request).enqueue(new RequestCallBackProxy(callBack));
             }
         });
     }
 
-    public static void post(final String url, final HttpRequestParams params, final FormBody form, final Headers headers, final HttpRequestCallBack callBack) {
+    public static void post(final String url, final RequestParams params, final FormBody form, final Headers headers
+            , final RequestCallBack callBack) {
         ThreadUtils.runOnBackground(new Runnable() {
             @Override
             public void run() {
                 StringBuilder stringBuilder = new StringBuilder(url);
 
-                if (params != null) {
-                    if (!url.endsWith("&")) {
-                        stringBuilder.append("&");
-                    }
-                    stringBuilder.append(params.toString());
+                if (!url.endsWith("&")) {
+                    stringBuilder.append("&");
                 }
 
-                Request request = new Request.Builder().url(stringBuilder.toString()).post(form).headers(headers).build();
-                mOkHttp.newCall(request).enqueue(new HttpRequestCallBackProxy(callBack));
+                stringBuilder.append(params.toString());
+                Request request = new Request.Builder().url(stringBuilder.toString()).post(form)
+                        .headers(headers).build();
+                mOkHttp.newCall(request).enqueue(new RequestCallBackProxy(callBack));
             }
         });
     }
 
-    public static void postJson(final String url, final HttpRequestParams params, final String json, final HttpRequestCallBack callBack) {
+    public static void postJson(final String url, final RequestParams params, final String json, final RequestCallBack callBack) {
         ThreadUtils.runOnBackground(new Runnable() {
             @Override
             public void run() {
                 StringBuilder stringBuilder = new StringBuilder(url);
 
-                if (params != null) {
-                    if (!url.endsWith("&")) {
-                        stringBuilder.append("&");
-                    }
-                    stringBuilder.append(params.toString());
+                if (!url.endsWith("&")) {
+                    stringBuilder.append("&");
                 }
+                stringBuilder.append(params.toString());
 
-                Request request = new Request.Builder().url(stringBuilder.toString()).post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json)).build();
-                mOkHttp.newCall(request).enqueue(new HttpRequestCallBackProxy(callBack));
+                Request request = new Request.Builder().url(stringBuilder.toString())
+                        .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json)).build();
+                mOkHttp.newCall(request).enqueue(new RequestCallBackProxy(callBack));
             }
         });
     }
 
-    public static void postSSL(final String url, final HttpRequestParams params, final FormBody form, final HttpRequestCallBack callBack) {
+    public static void postSSL(final String url, final RequestParams params,
+                               final FormBody form, final RequestCallBack callBack) {
 //TODO
     }
 
-    public static void postSSL(final String url, final HttpRequestParams params, final FormBody form, final Headers headers, final HttpRequestCallBack callBack) {
+    public static void postSSL(final String url, final RequestParams params, final FormBody form, final Headers headers, final RequestCallBack callBack) {
 //TODO
     }
 
-    public static void postJsonSSL(final String url, final HttpRequestParams params, final String json, final HttpRequestCallBack callBack) {
+    public static void postJsonSSL(final String url, final RequestParams params, final String json, final RequestCallBack callBack) {
 //TODO
     }
 }
