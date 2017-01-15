@@ -13,9 +13,13 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.weiteng.weitengapp.R;
+import com.weiteng.weitengapp.app.ApiManager;
 import com.weiteng.weitengapp.base.BaseCompatActivity;
+import com.weiteng.weitengapp.bean.ExchangeBean;
 import com.weiteng.weitengapp.bean.SpendingInfo;
+import com.weiteng.weitengapp.bean.resp.LoginResp;
 import com.weiteng.weitengapp.module.http.Http;
+import com.weiteng.weitengapp.module.http.HttpCookie;
 import com.weiteng.weitengapp.module.http.HttpRequestCallBack;
 import com.weiteng.weitengapp.ui.adapter.RecordItemAdapter;
 import com.weiteng.weitengapp.ui.view.XListView.XListView;
@@ -31,6 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.Headers;
 import okhttp3.Response;
 
 /**
@@ -62,6 +67,8 @@ public class RecordActivity extends BaseCompatActivity implements XListView.IXLi
     private int NORECORD = 2;
     private String mCategory = "";
     private int mPage;
+    private HttpCookie mHttpCookie;
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -81,12 +88,14 @@ public class RecordActivity extends BaseCompatActivity implements XListView.IXLi
             }
         }
     };
+    private boolean mIsSearch;
 
 
-    public static void launch(Context context, String category) {
+    public static void launch(Context context, String category,boolean is) {
         Intent intent = new Intent();
         intent.setClass(context, RecordActivity.class);
         intent.putExtra("category", category);
+        intent.putExtra("search",is);
         context.startActivity(intent);
     }
 
@@ -98,7 +107,7 @@ public class RecordActivity extends BaseCompatActivity implements XListView.IXLi
         mCategory = getIntent().getStringExtra("category");
         //String category = "5";
         mPage = 1;
-
+        mIsSearch = getIntent().getBooleanExtra("search",false);
         LogUtils.e("类", "" + mCategory);
         ButterKnife.inject(this);
         initView();
@@ -125,7 +134,15 @@ public class RecordActivity extends BaseCompatActivity implements XListView.IXLi
     }
 
     private void geneItems() {
-        getResponse();
+        //getResponse();
+        for (int i = 1;i<20;i++){
+            SpendingInfo spendingInfo = new SpendingInfo();
+            spendingInfo.setCount("1");
+
+            items.add(spendingInfo);
+        }
+
+
     }
 
     private void getResponse() {
@@ -133,7 +150,7 @@ public class RecordActivity extends BaseCompatActivity implements XListView.IXLi
         builder.add("exchangeType", mCategory).add("page", mPage + "")
                 .add("pagesize", "20");
         url = ResourceUtils.getString(R.string.url);
-        LogUtils.e("url地址", url);
+
         /*Http.post(url + "Api_user/userExchangeQuery", null, builder.build(), new RequestCallBack() {
             @Override
             public void onResponse(Call call, Response response) {
@@ -153,7 +170,7 @@ public class RecordActivity extends BaseCompatActivity implements XListView.IXLi
 
             }
         });*/
-        Http.post(url, null, builder.build(), new HttpRequestCallBack() {
+        /*Http.post(url+ "Api_user/userExchangeQuery", null, builder.build(), headersBuilder.build(),new HttpRequestCallBack() {
             @Override
             public void onResponse(Call call, Response response) {
                 String json = response.toString();
@@ -169,7 +186,37 @@ public class RecordActivity extends BaseCompatActivity implements XListView.IXLi
                 message.what = NETFAILED;
                 mHandler.sendMessage(message);
             }
+        });*/
+
+        ApiManager.getApiManager().getExchange(mCategory, mPage, 2,new ApiManager.RequestCallBack<SpendingInfo>() {
+            @Override
+            public void onSuccess(SpendingInfo data) {
+
+            }
+
+            @Override
+            public void onSuccess(List<SpendingInfo> data) {
+                try {
+                items.addAll(data);
+                if (items != null) {
+                    Message message = Message.obtain();
+                    message.what = NETSUCCESS;
+                    mHandler.sendMessage(message);
+                }
+            } catch (Exception e) {
+                Message message = Message.obtain();
+                message.what = NETFAILED;
+                mHandler.sendMessage(message);
+            }
+
+        }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
         });
+
     }
 
     private void pearJson(String json) {
@@ -200,11 +247,15 @@ public class RecordActivity extends BaseCompatActivity implements XListView.IXLi
 
     @Override
     protected void initData() {
+        if (mIsSearch){
+            mSearch.setVisibility(View.GONE);
+        }
 
         mSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RecordActivity.this, DataSelectActivity.class);
+                intent.putExtra("category",mCategory);
                 startActivity(intent);
             }
         });

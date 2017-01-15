@@ -1,5 +1,6 @@
 package com.weiteng.weitengapp.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -28,6 +29,11 @@ public class RecordFragment extends Fragment {
     Button mBtCash;
     @InjectView(R.id.bt_change)
     Button mBtChange;
+
+    @Override
+    protected View getSuccessView() {
+        return null;
+    }
 
     @Override
     protected void requestData() {
@@ -59,19 +65,19 @@ public class RecordFragment extends Fragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_spending:
-                RecordActivity.launch(getContext(),""+RecordActivity.SPENDING);
+                RecordActivity.launch(getContext(),""+RecordActivity.SPENDING,false);
 
                 break;
             case R.id.bt_recharge:
-                RecordActivity.launch(getContext(),""+RecordActivity.RECHARGE);
+                RecordActivity.launch(getContext(),""+RecordActivity.RECHARGE,false);
 
                 break;
             case R.id.bt_cash:
-                RecordActivity.launch(getContext(),""+RecordActivity.CASH);
+                RecordActivity.launch(getContext(),""+RecordActivity.CASH,false);
 
                 break;
             case R.id.bt_change:
-                RecordActivity.launch(getContext(),""+RecordActivity.CHANGE);
+                RecordActivity.launch(getContext(),""+RecordActivity.CHANGE,false);
 
                 break;
         }

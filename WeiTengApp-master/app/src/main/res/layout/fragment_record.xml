@@ -1,38 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical">
-
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
+        android:id="@+id/tb_re_ac"
+        android:background="@color/green"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:titleTextColor="@color/colorAccent"
+        android:layout_height="wrap_content">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="16dp"
-            android:gravity="center"
-            android:text="记录"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:textColor="@android:color/white" />
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/record"
+                android:layout_centerInParent="true"
+                android:textColor="@color/greenyellow"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
     </android.support.v7.widget.Toolbar>
+
 
     <Button
         android:id="@+id/bt_spending"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="@string/spending" />
+        android:text="@string/spending"/>
 
     <Button
         android:id="@+id/bt_recharge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="@string/recharge" />
+        android:text="@string/recharge"/>
 
     <Button
         android:id="@+id/bt_cash"
@@ -40,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="@string/cash" />
+        android:text="@string/cash"/>
 
     <Button
         android:id="@+id/bt_change"
@@ -48,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="@string/change" />
+        android:text="@string/change"/>
 
 
 </LinearLayout>

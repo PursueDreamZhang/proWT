@@ -22,13 +22,12 @@
     <string name="no_record">您还没有此记录</string>
     <string name="no_net">网络刷新失败</string>
     <string name="record">记录</string>
-    -
-    <string-array name="main_tab_names">
-        <item>主页</item>
+    -<string-array name="main_tab_names">
+        <item>首页</item>
         <item>商城</item>
         <item>记录</item>
         <item>我的</item>
-    </string-array>
+</string-array>
     <string name="title_activity_login">登录</string>
 
     <!-- Strings related to login -->

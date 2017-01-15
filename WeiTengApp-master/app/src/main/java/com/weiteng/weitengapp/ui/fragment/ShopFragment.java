@@ -24,6 +24,11 @@ public class ShopFragment extends Fragment {
     }
 
     @Override
+    protected View getSuccessView() {
+        return null;
+    }
+
+    @Override
     protected void requestData() {
 
     }

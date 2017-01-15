@@ -5,7 +5,6 @@
     android:id="@+id/activity_crash_report"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical"
     tools:context="com.weiteng.weitengapp.module.crash.CrashReportActivity">
 

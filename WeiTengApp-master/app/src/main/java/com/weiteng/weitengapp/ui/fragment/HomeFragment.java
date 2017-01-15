@@ -26,6 +26,11 @@ public class HomeFragment extends Fragment {
     @InjectView(R.id.lv_home)
     ListView mLvHome;
 
+    @Override
+    protected View getSuccessView() {
+        return null;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

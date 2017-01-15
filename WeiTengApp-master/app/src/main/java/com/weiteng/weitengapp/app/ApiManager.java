@@ -3,8 +3,8 @@ package com.weiteng.weitengapp.app;
 import com.google.gson.reflect.TypeToken;
 import com.weiteng.weitengapp.bean.ExchangeBean;
 import com.weiteng.weitengapp.bean.MoneyBean;
+import com.weiteng.weitengapp.bean.SpendingInfo;
 import com.weiteng.weitengapp.bean.UserInfoBean;
-import com.weiteng.weitengapp.bean.resp.GetUserInfoResp;
 import com.weiteng.weitengapp.bean.resp.LoginResp;
 import com.weiteng.weitengapp.bean.resp.PreorderResp;
 import com.weiteng.weitengapp.interf.IServerAPI;
@@ -13,6 +13,7 @@ import com.weiteng.weitengapp.module.http.HttpCookie;
 import com.weiteng.weitengapp.module.http.HttpRequestCallBack;
 import com.weiteng.weitengapp.util.FileUtils;
 import com.weiteng.weitengapp.util.JsonUtils;
+import com.weiteng.weitengapp.util.LogUtils;
 import com.weiteng.weitengapp.util.ThreadUtils;
 
 import java.io.File;
@@ -77,14 +78,15 @@ public class ApiManager implements IServerAPI {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                new RequestCallBackProxy(callBack).onFailure(e.getMessage());
+
             }
         });
     }
 
 
     @Override
-    public void login(String username, String password, int userType, String code, int loginType, final RequestCallBack<LoginResp> callBack) {
+    public void login(String username, String password, int userType, String code, int loginType,
+                      final RequestCallBack<LoginResp> callBack) {
         Headers.Builder headersBuilder = new Headers.Builder();
         headersBuilder.add("Connection", "keep-alive");
         headersBuilder.add("Cookie", mHttpCookie.getKVString("ci_session"));
@@ -109,7 +111,7 @@ public class ApiManager implements IServerAPI {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                new RequestCallBackProxy(callBack).onFailure(e.getMessage());
+
             }
         });
     }
@@ -124,8 +126,8 @@ public class ApiManager implements IServerAPI {
             @Override
             public void onResponse(Call call, Response response) {
                 try {
-                    GetUserInfoResp userInfoResp = JsonUtils.parseJsonToBean(response.body().string(), GetUserInfoResp.class);
-                    new RequestCallBackProxy(callBack).onSuccess(userInfoResp.userinfo);
+                    UserInfoBean userInfo = JsonUtils.parseJsonToBean(response.body().string(), UserInfoBean.class);
+                    new RequestCallBackProxy(callBack).onSuccess(userInfo);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -133,18 +135,22 @@ public class ApiManager implements IServerAPI {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                new RequestCallBackProxy(callBack).onFailure(e.getMessage());
+
             }
         });
     }
 
     @Override
-    public void getExchange(int exchangeType, int page, int pagesize, long exchangeTime1, long exchangeTime2, final RequestCallBack<List<ExchangeBean>> callBack) {
+    public void getExchange(String exchangeType, int page, int pagesize, long exchangeTime1,
+                            long exchangeTime2, final RequestCallBack<SpendingInfo> callBack) {
         Headers.Builder headersBuilder = new Headers.Builder();
         headersBuilder.add("Connection", "keep-alive");
         headersBuilder.add("Cookie", mHttpCookie.getKVString("ci_session"));
 
-        Http.get(GetExchangeUrl, null, headersBuilder.build(), new HttpRequestCallBack() {
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("exchangeType", exchangeType).add("page", page + "")
+                .add("pagesize", "20");
+        Http.post(GetExchangeUrl, null, builder.build(),headersBuilder.build(), new HttpRequestCallBack() {
             @Override
             public void onResponse(Call call, Response response) {
                 try {
@@ -158,10 +164,40 @@ public class ApiManager implements IServerAPI {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                new RequestCallBackProxy(callBack).onFailure(e.getMessage());
+
             }
         });
     }
+
+    @Override
+    public void getExchange(String exchangeType, int page, int pagesize,final RequestCallBack<SpendingInfo> callBack) {
+        Headers.Builder headersBuilder = new Headers.Builder();
+        headersBuilder.add("Connection", "keep-alive");
+        headersBuilder.add("Cookie", mHttpCookie.getKVString("ci_session"));
+
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("exchangeType", exchangeType).add("page", page + "")
+                .add("pagesize", "20");
+        Http.post(GetExchangeUrl, null, builder.build(),headersBuilder.build(), new HttpRequestCallBack() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                try {
+                    String s = response.toString();
+                    List<SpendingInfo> exchanges = (List<SpendingInfo>) JsonUtils.parseJsonToList(response.body().string(), new TypeToken<List<ExchangeBean>>() {
+                    }.getType());
+                    new RequestCallBackProxy(callBack).onSuccess(exchanges);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+        });
+    }
+
 
     @Override
     public void getMoney(final RequestCallBack<List<MoneyBean>> callBack) {
@@ -183,7 +219,7 @@ public class ApiManager implements IServerAPI {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                new RequestCallBackProxy(callBack).onFailure(e.getMessage());
+
             }
         });
     }
@@ -207,17 +243,9 @@ public class ApiManager implements IServerAPI {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                new RequestCallBackProxy(callBack).onFailure(e.getMessage());
+
             }
         });
-    }
-
-    public HttpCookie getCookie() {
-        return mHttpCookie;
-    }
-
-    public void setCookie(HttpCookie cookie) {
-        mHttpCookie = cookie;
     }
 
     public interface RequestCallBack<T> {
