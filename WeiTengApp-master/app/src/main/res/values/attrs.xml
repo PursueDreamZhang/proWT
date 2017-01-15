@@ -1,0 +1,8 @@
+<resources>
+
+    <!-- IconViewPager -->
+    <declare-styleable name="TabView">
+        <attr name="tabView" format="reference" />
+    </declare-styleable>
+
+</resources>
