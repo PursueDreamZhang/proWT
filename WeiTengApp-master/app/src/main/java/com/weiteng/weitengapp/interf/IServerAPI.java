@@ -3,7 +3,6 @@ package com.weiteng.weitengapp.interf;
 import com.weiteng.weitengapp.app.ApiManager;
 import com.weiteng.weitengapp.bean.ExchangeBean;
 import com.weiteng.weitengapp.bean.MoneyBean;
-import com.weiteng.weitengapp.bean.SpendingInfo;
 import com.weiteng.weitengapp.bean.UserInfoBean;
 import com.weiteng.weitengapp.bean.resp.LoginResp;
 import com.weiteng.weitengapp.bean.resp.PreorderResp;
@@ -25,7 +24,6 @@ public interface IServerAPI {
     String GetMoneyUrl = HOST + "/Api_user/moneyList";
     String PreOrderUrl = HOST + "/Api_user/orderAdd";
 
-
     //GET
     //params: *timestamp
     void getVerifyCode(long time, ApiManager.RequestCallBack<File> callBack);
@@ -40,11 +38,7 @@ public interface IServerAPI {
 
     //POST
     //params: *exchangeType *page *pagesize exchangeTime1 exchangeTime2
-    void getExchange(String exchangeType, int page, int pagesize, long exchangeTime1,
-                     long exchangeTime2, ApiManager.RequestCallBack<SpendingInfo> callBack);
-    //POST
-    //params: *exchangeType *page *pagesize
-    void getExchange(String exchangeType, int page, int pagesize,  ApiManager.RequestCallBack<SpendingInfo> callBack);
+    void getExchange(int exchangeType, int page, int pagesize, long exchangeTime1, long exchangeTime2, ApiManager.RequestCallBack<List<ExchangeBean>> callBack);
 
     //GET
     //params:
@@ -53,6 +47,4 @@ public interface IServerAPI {
     //POST
     //params: *orderTime *moneyID *shopID
     void preorder(long orderTime, int moneyID, int shopID, ApiManager.RequestCallBack<PreorderResp> callBack);
-
-
 }

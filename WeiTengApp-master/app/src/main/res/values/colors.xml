@@ -2,12 +2,12 @@
 <resources>
     <color name="background">#F7F4F0</color>
     <color name="title_color">#333333</color>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#FF06B5E1</color>
+    <color name="colorPrimaryDark">#FF0497BB</color>
     <color name="colorAccent">#FF4081</color>
     <color name="cate_bg_block">#99000000</color>
     <color name="tab_text_normal">#FF696969</color>
-    <color name="tab_text_selected">#FF1A9DFF</color>
+    <color name="tab_text_selected">#FF06B5E1</color>
     <!-- 白色 -->
     <color name="bg_White">#FFFFFF</color>
     <!-- 黑色 -->

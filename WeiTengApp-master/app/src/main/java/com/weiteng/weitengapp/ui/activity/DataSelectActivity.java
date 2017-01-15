@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.weiteng.weitengapp.R;
-import com.weiteng.weitengapp.app.ApiManager;
 import com.weiteng.weitengapp.base.BaseCompatActivity;
 import com.weiteng.weitengapp.util.DateTimePickDialogUtil;
 import com.weiteng.weitengapp.util.LogUtils;
@@ -31,14 +30,12 @@ public class DataSelectActivity extends BaseCompatActivity {
 
     private String initStartDateTime = ""; // 初始化开始时间
     private String initEndDateTime = ""; // 初始化结束时间
-    private String mCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datasearch);
         ButterKnife.inject(this);
-        mCategory = getIntent().getStringExtra("category");
         initView();
         initData();
     }
@@ -80,7 +77,6 @@ public class DataSelectActivity extends BaseCompatActivity {
                 try {
                     Date date = sdf.parse(s);
                     Date date2 = sdf.parse(s1);
-                    RecordActivity.launch(DataSelectActivity.this,mCategory,true);
 
                 } catch (ParseException e) {
                     e.printStackTrace();

@@ -1,6 +1,5 @@
 package com.weiteng.weitengapp.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
@@ -25,14 +24,12 @@ public class MainActivity extends BaseCompatActivity {
         setContentView(R.layout.activity_main);
         initView();
         initData();
-
-        startActivity(new Intent(this, LoginActivity.class));
     }
 
     @Override
     protected void initView() {
-        mViewPager = (ViewPager) findViewById(R.id.activity_main_vp);
-        mIconPager = (IconViewPager) findViewById(R.id.activity_main_ip);
+        mViewPager = (ViewPager) findViewById(R.id.aty_main_vp);
+        mIconPager = (IconViewPager) findViewById(R.id.aty_main_ip);
     }
 
     @Override
