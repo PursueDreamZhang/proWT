@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+                android:background="@color/bg_Gray_light"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/tvMoney_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:text="+20.00" />
+
+    <ImageView
+        android:id="@+id/icon_record"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvDateTime_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle_record"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/icon_record"
+        android:text="00:00" />
+
+    <TextView
+        android:id="@+id/tvTitle_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvDateTime_record"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentTop="true"
+        android:text="转出到银行卡"
+        android:layout_above="@+id/tvShop_record"/>
+
+    <TextView
+        android:id="@+id/tvShop_record"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/tvMoney_record"
+        android:layout_below="@+id/tvMoney_record"
+         />
+
+</RelativeLayout>
